@@ -1,0 +1,112 @@
+extends ../layout/header.pug
+block content
+  // breadcrumb area start
+  .breadcrumb_container
+    .container-fluid
+      .row
+        .col-12
+          nav
+            ul
+              li
+                a(href='/') Home &gt;
+              li Cart
+  // breadcrumb area end
+  .cart_main_area
+    .container
+      .row
+        .col-12
+          form(action='#')
+            .table-content.table-responsive
+              table
+                thead
+                  tr
+                    th.img-thumbnail Image
+                    th.product-name Product
+                    th.product-price Price
+                    th.product-quantity Quantity
+                    th.product-subtotal Total
+                    th.product-remove Remove
+                tbody#select-quantity
+                  each product in products
+                    tr
+                      td.product-thumbnail
+                        img( src=product.img, width='60%',alt='')
+                      td.product-name
+                        a(href='#') #{product.name}
+                      td.product-price
+                        span.amount K₫ #{product.price}
+                      td.product-quantity
+                        input.span1(style='max-width:34px', value=product.quantity, id= product.productid, size='16', type='text')
+                        a(href='/cart/checkout/update') 
+                          button.btn.btn-success(type='button') Update
+                        //- .quickview_plus_minus.quick_cart
+                        //-   .quickview_plus_minus_inner
+                        //-     .cart-plus-minus.cart_page
+                        //-       input.cart-plus-minus-box(type='text', value='02', name='qtybutton')
+                      td.product-subtotal K₫ #{product.price * product.quantity}
+                      td.product-remove
+                        a(href='/cart/checkout/delete')
+                          button.btn.btn-danger.delete-button(type='button', id= product.productid) X
+            .row.table-responsive_bottom
+              .col-lg-7.col-sm-7.col-md-7
+                .buttons-carts
+                  a(href='/products') Continue Shopping
+              .col-lg-5.col-sm-5.col-md-5
+                .cart_totals.text-right
+                  h2 Cart Totals
+                  .order-total
+                    span
+                      strong Total
+                      -
+                        var totalPrice = 0
+                        for(var i=0;i< products.length;i++){
+                        totalPrice = totalPrice + products[i].price*products[i].quantity
+                        }
+                    span
+                      strong K₫ #{totalPrice}
+                  .wc-proceed-to-checkout
+                    a(href= email ? '/register' : '/signin') Register (Checkout)
+    // footer
+  include ../layout/footer.pug
+  block js
+    script.
+      var quantity = document.getElementById('select-quantity'); 
+      quantity.addEventListener('change', onUpdateCart); 
+      quantity.addEventListener('click', onDelete);
+      
+      function onUpdateCart(event) {
+        var updateQuantity = event.target.value;
+        var id = event.target.id;//Lay id duoc update
+        
+        fetch('http://localhost:3000/cart/checkout/update', {
+          method: 'post',
+          headers:{
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            updateQuantity: updateQuantity,
+            id: id
+          })
+        })
+        .then(response => console.log('Success'))
+        .catch(error => console.error('Error', error));
+      }
+
+      function onDelete(event) {
+        if(event.target.classList.contains('delete-button')){
+          var idDelete = event.target.id;// Lay id bi xoa
+          console.log('idDelete', idDelete);
+
+          fetch('http://localhost:3000/cart/checkout/delete', {
+          method: 'post',
+          headers:{
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            idDelete: idDelete
+          })
+        })
+        .then(response => console.log('Success'))
+        .catch(error => console.error('Error', error));
+        }
+      }

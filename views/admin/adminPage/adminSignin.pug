@@ -1,0 +1,44 @@
+extends ../layout/header.pug
+block content
+  .container
+    .row
+      .col-12
+        h3  Login
+        hr.soft
+        .row
+          .col-6
+            h5 ADMIN ?
+            br 
+            if errors
+              each error in errors
+                .alert.alert-danger= error
+            form(action="/admin/signin/", method="POST" )
+              .control-group
+                label.control-label(for="email") Email
+                .controls
+                  input#email(type="email" name="email" value= values ? values.email : '')
+              .control-group
+                label.control-label(for="password") Password
+                .controls
+                  input#password(type="password" name="password" value= values ? values.password : '')
+              br 
+              .control-group
+                .controls
+                  button.btn.btn-success(type='submit') Sign in
+          .col-6
+            h5 CREATE YOUR ACCOUNT
+            br
+            form(action='/admin/signin/create', method="POST")
+              .control-group
+                label.control-label(for='inputEmail0') Email
+                .controls
+                  input#inputEmail0.span3(type='text', name='emailCreate', placeholder='Email')
+              .control-group
+                label.control-label(for="password") Password
+                .controls
+                  input#password.span3(type="password", name='passwordCreate', placeholder='Password')
+              br 
+              .controls
+                button.btn.btn-success(type='submit') Create Admin Account
+  // Footer ==========================================================
+  //include ../layout/footer.pug

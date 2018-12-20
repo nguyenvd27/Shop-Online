@@ -1,0 +1,101 @@
+extends ../layout/header.pug
+block content
+  // breadcrumb area start
+  .breadcrumb_container
+    .container-fluid
+      .row
+        .col-12
+          nav
+            ul
+              li
+                a(href='/') Home &gt;
+              li Product details 
+  // primary block area
+  .table_primary_block.pt-100
+    .container
+      .row
+        .col-lg-5.col-md-5.col-sm-12
+          .product-flags
+            .tab-content
+              #tabone.tab-pane.fade.show.active(role='tabpanel')
+                .product_tab_img
+                  a(href='#')
+                    img(src=product.img, alt='')
+        .col-lg-7.col-md-7.col-sm-12
+          .product__details_content
+            .demo_product
+              h2 #{product.name}
+              p Supplier: #{product.supplier}
+            .product_comments_block
+              .comments_note.clearfix
+                i.fa.fa-star(aria-hidden='true')
+                i.fa.fa-star(aria-hidden='true')
+                i.fa.fa-star(aria-hidden='true')
+                i.fa.fa-star(aria-hidden='true')
+                i.fa.fa-star(aria-hidden='true')
+            .current_price
+              span K₫ #{product.price}
+            .product_information
+              #product_description_short
+                p #{product.description}
+              .product_variants
+                .product_variant_list
+                  .product_variants_item.variants_product
+                    span.control_label Size
+                    select#group_1(name='group[1]')
+                      option(value='1') S
+                      option(value='2', selected='selected') M
+                      option(value='3') L
+      
+                .quickview_plus_minus
+                  span.control_label Quantity
+                  .quickview_plus_minus_inner
+                    .add_button
+                      a(href='/cart/add/'+product.id)
+                        button  Add to cart
+                .product-availability
+                  span#availability
+                    i.zmdi.zmdi-check
+                    | In stock
+                .block-reassurance
+                  ul
+                    li
+                      img(src='assets/img/cart/cart1.png', alt='')
+                      span Security policy (edit with Customer reassurance module)
+                    li
+                      img(src='assets/img/cart/cart2.png', alt='')
+                      span Delivery policy (edit with Customer reassurance module)
+                    li
+                      img(src='assets/img/cart/cart3.png', alt='')
+                      span Return policy (edit with Customer reassurance module)
+  // product page tab
+  .product_page_tab.ptb-100
+    .container
+      .row
+        .col-12
+          .product_tab_button
+            ul#myTab.nav.nav-tabs(role='tablist')
+              li
+                a#home-tab.tav_past.active(data-toggle='tab', href='#information', role='tab', aria-controls='information', aria-selected='true') Information
+              li
+                a#profile-tab.tav_past(data-toggle='tab', href='#description', role='tab', aria-controls='description', aria-selected='false') Description
+          #myTabContent.tab-content
+            #information.tab-pane.fade.show.active(role='tabpanel')
+              .product-information
+                p Id: #{product.id}
+                p Name: #{product.name}
+                if product.category===1
+                  p Category: Áo Nam
+                else if product.category===2
+                  p Category: Quần Nam
+                p Price: #{product.price}
+                p Supplier: #{product.supplier}
+
+            #description.tab-pane.fade(role='tabpanel')
+              .product-description
+                .product-manufacturer
+                  a(href='#')
+                    img(src='assets/img/cart/11.jpg', alt='')
+                p #{product.description}
+    // footer start
+    include ../layout/footer.pug

@@ -1,0 +1,46 @@
+extends ../layout/header.pug
+block content
+  // breadcrumb area start
+  .breadcrumb_container
+    .container-fluid
+      .row
+        .col-12
+          nav
+            ul
+              li
+                a(href='/') Home
+                |  &gt;
+              li createuser
+  // login section start
+  .page_login_section
+    .container
+      .row
+        .col-lg-6.offset-lg-3.col-md-8.offset-md-2.col-sm-10.offset-sm-1
+          h5 CREATE YOUR ACCOUNT
+          br
+          if errors
+            .alert.alert-danger= errors
+          form(action='/signin/create', method="POST")
+            .control-group
+              label.control-label(for='name') Name
+              .controls
+                input#name.span3(type='text', name='name', placeholder='Name' value= values ? values.name : '')
+            .control-group
+              label.control-label(for='inputEmail0') Email
+              .controls
+                input#inputEmail0.span3(type='text', name='email', placeholder='Email')
+            .control-group
+              label.control-label(for="password") Password
+              .controls
+                input#password.span3(type="password", name='password', placeholder='Password' value= values ? values.password : '')
+            .control-group
+              label.control-label(for="phone") Phone
+              .controls
+                input#phone.span3(type="text", name='phone', placeholder='phone' value= values ? values.phone : '')
+            br
+            .controls
+              button.btn.block.btn-success(type='submit') Create Your Account
+  // organicfood wrapper start
+  .footer_food_wrapper
+    // footer start
+    include ../layout/footer.pug

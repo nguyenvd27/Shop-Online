@@ -1,0 +1,42 @@
+extends ../layout/header.pug
+block content
+  // breadcrumb area start
+  .breadcrumb_container
+    .container-fluid
+      .row
+        .col-12
+          nav
+            ul
+              li
+                a(href='/') Home
+                |  &gt;
+              li userview
+  // breadcrumb area end
+  // Start Maincontent
+  section.main-content-area.my-account.ptb-100
+    .container
+      .account-dashboard
+        .row
+          .col-sm-12.col-md-3.col-lg-3
+            // Nav tabs
+            ul.nav.flex-column.dashboard-list(role='tablist')
+              li
+                a.nav-link.active(href='#myaccount', data-toggle='tab') My Account
+              li
+                a.nav-link(href='/logout') Logout
+          .col-sm-12.col-md-9.col-lg-9
+            .tab-content.myaccount-content
+              #myaccount.tab-pane.fade.show.active
+                h3 My Account 
+                p(style ={ 'font-size': '24px'}) ID:  <strong>#{user.id}</strong>
+                p(style ={ 'font-size': '20px'}) Email:  <strong>#{user.email}</strong>
+                p(style ={ 'font-size': '20px'}) Name:  <strong>#{user.name}</strong>
+                p(style ={ 'font-size': '20px'}) Phone:  <strong>#{user.phone}</strong>
+                p(style ={ 'font-size': '20px'}) Time Joined:  <strong>#{user.joined}</strong>
+                a.btn.btn-success(href='/user/'+user.id) Edit Infor
+                span &nbsp;
+                a.btn.btn-success(href='/user/changepassword') Change Password
+  // End Maincontent
+  .footer_food_wrapper
+    // footer start
+    include ../layout/footer.pug

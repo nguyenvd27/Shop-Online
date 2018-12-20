@@ -1,0 +1,172 @@
+extends ../layout/header.pug
+block content
+  // Slider start
+  .slider_area
+    .slider_list.owl-carousel
+      each carousel in carousels
+        .single_slide(style= 'background-image: url('+carousel.img+') ; background-size: auto 600px;')
+          .container
+            .row
+              .col-12
+                .slider__content
+                  h3 
+                    strong Thời Trang Nam
+                  h4
+                    | Giá 
+                    strong Rẻ Nhất
+                  p
+                    | Nhiều Thương hiệu nổi tiếng
+                  h6
+                    | CHẤT NHẤT
+                  .slider_btn
+                    a(href='/products') Shopping now
+  
+  // New product area
+  .features_product.pt-90
+    .container-fluid
+      .row
+        .col-12
+          .section_title.text-center
+            h3  New products 
+      .row
+        .features_product_active.owl-carousel
+          each newproduct in newproducts
+            .col-lg-2
+              .single__product
+                .single_product__inner
+                  span.new_badge new
+                  .product_img
+                    a(href='/product-details/' + newproduct.id)
+                      img(src=newproduct.img, alt='')
+                  .product__content.text-center
+                    .produc_desc_info
+                      .product_title
+                        h4
+                          a(href='/product-details/' + newproduct.id) #{newproduct.name}
+                      .product_price
+                        p K₫ #{newproduct.price}
+                    .product__hover
+                      ul
+                        li
+                          a(href='/cart/add/'+newproduct.id)
+                            i.ion-android-cart
+                        li
+                          a(href='/product-details/' + newproduct.id)
+                            i.ion-clipboard
+  // Shipping area start
+  .shipping_area
+    .container-fluid
+      .row
+        .col-12
+          .shipping_list.d-flex.justify-content-between.flex-xs-column
+            .single_shipping_box.d-flex
+              .shipping_icon
+                img(src='assets/img/ship/1.png', alt='shipping icon')
+              .shipping_content
+                h6 Free Shipping On Order Over $120
+                p Free shipping on all order
+            .single_shipping_box.one.d-flex
+              .shipping_icon
+                img(src='assets/img/ship/2.png', alt='shipping icon')
+              .shipping_content
+                h6 Money Return
+                p Back guarantee under 7 days
+            .single_shipping_box.two.d-flex
+              .shipping_icon
+                img(src='assets/img/ship/3.png', alt='shipping icon')
+              .shipping_content
+                h6 Member Discount
+                p Support online 24 hours a day
+            .single_shipping_box.three.d-flex
+              .shipping_icon
+                img(src='assets/img/ship/4.png', alt='shipping icon')
+              .shipping_content
+                h6 Online Support 24/7
+                p Free shipping on all order
+  // Shipping area end
+  // shop product area start
+  .shop_product
+    .container-fluid
+      .row
+        .col-12
+          .shop_product_head.d-flex.justify-content-between.mb-30
+            .section_title.space_2.text-left
+              h3 shop 
+      .row
+        .col-lg-4.col-md-6
+          .shop_larg_product
+            .single__product_2
+              .product_img
+                a(href='/product-details/' + products[0].id)
+                  img(src=products[0].img, alt='', height='600px', width='500px')
+              .product__content.text-center
+                .product_title
+                  h4
+                    a(href='/product-details/' + products[0].id) #{products[0].name}
+                .product_price
+                  p K₫ #{products[0].price}
+                .product-add-to-cart
+                  a(href='/cart/add/'+products[0].id) add to cart
+        .col-lg-8.col-md-6
+          .tab-content
+            #fresh.tab-pane.active.show.fade(role='tabpanel')
+              .row
+                .shop-product_list.owl-carousel
+                  if products.length>0 
+                    - for(var i=0;i< products.length;i++)
+                      .col-12
+                        .shop_single_prduct_item
+                          .single__product
+                            .single_product__inner
+                              .product_img
+                                a(href='/product-details/' + products[i].id)
+                                  img(src=products[i].img, alt='')
+                              .product__content.text-center
+                                .produc_desc_info
+                                  .product_title
+                                    h4
+                                      a(href='/product-details/' + products[i].id) #{products[i].name}
+                                  .product_price
+                                    p K₫ #{products[i].price}
+                                .product__hover
+                                  ul
+                                    li
+                                      a(href='/cart/add/'+products[i].id)
+                                        i.ion-android-cart
+                                    li
+                                      a(href='/product-details/' + products[i].id)
+                                        i.ion-clipboard
+                          - i=i+1;
+                          .single__product
+                            .single_product__inner
+                              .product_img
+                                a(href='/product-details/' + products[i].id)
+                                  img(src=products[i].img, alt='')
+                              .product__content.text-center
+                                .produc_desc_info
+                                  .product_title
+                                    h4
+                                      a(href='/product-details/' + products[i].id) #{products[i].name}
+                                  .product_price
+                                    p K₫ #{products[i].price}
+                                .product__hover
+                                  ul
+                                    li
+                                      a(href='/cart/add/'+products[i].id)
+                                        i.ion-android-cart
+                                    li
+                                      a(href='/product-details/' + products[i].id)
+                                        i.ion-clipboard
+  // Banner area start
+  .banner_area.home1_banner.mt-30
+    .container-fluid
+      .row
+        if carousels.length >=3
+          - for(var i =1; i<= 3; i++)
+            - var j= carousels.length-i;
+            .col-lg-4.col-md-6
+              .single_banner
+                a(href='/products')
+                  img(src=carousels[j].img, height='200px' alt='')
+  // footer start
+  include ../layout/footer.pug

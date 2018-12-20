@@ -1,0 +1,96 @@
+doctype html
+head
+  meta(charset='utf-8')
+  meta(http-equiv='x-ua-compatible', content='ie=edge')
+  title Shopping
+  meta(name='description', content='')
+  meta(name='viewport', content='width=device-width, initial-scale=1')
+  // Favicon
+  link(rel='shortcut icon', type='image/x-icon', href='assets/img/newlogo.png')
+  // all css here
+  link(rel='stylesheet', href='assets/css/bootstrap.min.css')
+  link(rel='stylesheet', href='assets/css/animate.css')
+  link(rel='stylesheet', href='assets/css/owl.carousel.min.css')
+  link(rel='stylesheet', href='assets/css/jquery-ui.css')
+  link(rel='stylesheet', href='assets/css/chosen.min.css')
+  link(rel='stylesheet', href='assets/css/ionicons.min.css')
+  link(rel='stylesheet', href='assets/css/font-awesome.min.css')
+  link(rel='stylesheet', href='assets/css/material-design-iconic-font.min.css')
+  link(rel='stylesheet', href='assets/css/meanmenu.min.css')
+  link(rel='stylesheet', href='assets/css/bundle.css')
+  link(rel='stylesheet', href='assets/css/style.css')
+  link(rel='stylesheet', href='assets/css/responsive.css')
+  script(src='assets/js/vendor/modernizr-2.8.3.min.js')
+// Add your site or application content here
+// organicfood wrapper start
+.organic_food_wrapper
+  // Header start
+  header.header.sticky-header(style="background-color: #F0FFFF;")
+    .container-fluid
+      .row
+        .col-12
+          .header_wrapper_inner
+            .logo.col-xs-12
+              a(href='/')
+                img(src='assets/img/logo/newlogo.png', width='20%' alt='')
+              if email 
+                p Hello #{email}
+            .main_menu_inner
+              .menu
+                nav
+                  ul
+                    li.active
+                      a(href='/') Home 
+                    li
+                      a(href='/products') products
+                    li
+                      a(href='/contact') Contact 
+                    li
+                      a(href='/cart/checkout') cart 
+              .mobile-menu.d-lg-none
+                nav
+                  ul
+                    li.active
+                      a(href='/') Home
+                    li
+                      a(href='/contact') about us 
+                    li
+                      a(href='/cart/checkout') cart 
+                    li
+                      a(href='/products') products
+            .header_right_info.d-flex
+              .search_box
+                .search_inner
+                  form(method='get', action='/products/search')
+                    input(type='text', placeholder='Search products...', name='q', value = q ? q : '')
+                    button(type='submit')
+                      i.ion-ios-search
+              .mini__cart
+                .mini_cart_inner
+                  .cart_icon
+                    a(href='/cart/checkout')
+                      span.cart_icon_inner
+                        i.ion-android-cart
+                        span.cart_count #{countItem}
+                      span.item_total K₫ #{price}
+              .header_account
+                .account_inner
+                  a(href='#')
+                    i.ion-gear-b
+                .content-setting-dropdown
+                  .user_info_top
+                      ul
+                        if email 
+                          li
+                            a(href='/user/view') my account
+                          li 
+                            a(href='/logout') Logout
+                        else 
+                          li
+                            a(href='/signin') my account
+                          li
+                            a(href='/signin') Sign in
+                        li
+                          a(href='/register') register
+  // Header end
+  block content

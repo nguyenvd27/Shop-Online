@@ -1,0 +1,42 @@
+extends ../layout/header.pug
+block content
+  // breadcrumb area start
+  .breadcrumb_container
+    .container-fluid
+      .row
+        .col-12
+          nav
+            ul
+              li
+                a(href='/') Home
+                |  &gt;
+              li userEdit
+  // breadcrumb area end
+  // Start Maincontent
+  section.main-content-area.my-account.ptb-100
+    .container
+      .account-dashboard
+        .row
+          .col-sm-12.col-md-3.col-lg-3
+            // Nav tabs
+            ul.nav.flex-column.dashboard-list(role='tablist')
+              li
+                a.nav-link.active(href='#myaccount', data-toggle='tab') My Account
+          .col-sm-12.col-md-9.col-lg-9
+            .tab-content.myaccount-content
+              #myaccount.tab-pane.fade.show.active
+                h3 Edit User: #{user.name}
+                h5 Email: #{user.email}
+                hr.soft
+                form#form(action="/user/"+user.id, method="POST")
+                  .form-group
+                    label(for="name") Name
+                    input#name.form-control(type="text" name="name" value= user.name ? user.name : '')
+                  .form-group
+                    label(for="phone") Phone
+                    input#phone.form-control(type="number" name="phone" value= user.phone ? user.phone : '')
+                  button(class="btn btn-success ml-6") Update  
+  // End Maincontent
+  .footer_food_wrapper
+    // footer start
+    include ../layout/footer.pug

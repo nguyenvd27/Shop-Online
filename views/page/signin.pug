@@ -1,0 +1,49 @@
+extends ../layout/header.pug
+block content
+  // breadcrumb area start
+  .breadcrumb_container
+    .container-fluid
+      .row
+        .col-12
+          nav
+            ul
+              li
+                a(href='/') Home
+                |  &gt;
+              li signin
+  // login section start
+  .page_login_section
+    .container
+      .row
+        .col-lg-6.offset-lg-3.col-md-8.offset-md-2.col-sm-10.offset-sm-1
+          .login_page_form
+            if errors
+              each error in errors
+                .alert.alert-danger= error
+            h5 ALREADY REGISTERED ?
+            form(action="/signin", method="POST" )
+              .row
+                .col-12
+                  .input_text
+                    label(for='email')
+                      | Email 
+                      span *
+                    input#email(type="email" name="email" value= values ? values.email : '')
+                .col-12
+                  .input_text
+                    label(for='password')
+                      | Passwords 
+                      span *
+                    input#password(type="password" name="password" value= values ? values.password : '')
+                .col-12
+                  .login_submit
+                    input.inline(value='Login', name='Login', type='submit')
+          br
+          .login_page_form
+            h3 Do not have an account?
+            h5 Create Account: &nbsp;
+              a.btn.btn-success(href='/signin/create') CREATE
+  // organicfood wrapper start
+  .footer_food_wrapper
+    // footer start
+    include ../layout/footer.pug

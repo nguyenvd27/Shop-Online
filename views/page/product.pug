@@ -1,0 +1,165 @@
+extends ../layout/header.pug
+block content
+  .breadcrumb_container
+    .container-fluid
+      .row
+        .col-12
+          nav
+            ul
+              li
+                a(href='/') Home &gt;
+              li products
+  .organic_food_wrapper
+    // - shop_wrapper area
+    .shop_wrapper.ptb-90
+      .container-fluid
+        .row
+          .col-lg-3.col-md-8.col-12
+            .shop_sidebar
+              .block_categories
+                .category_top_menu.widget
+                  .widget_title
+                    h3 categories
+                  ul.shop_toggle
+                    li.has-sub
+                      a(href='#') Thời trang Nam 
+                      ul.categorie_sub
+                        li
+                          a(href='/products/category1') Áo Nam
+                        li
+                          a(href='/products/category2') Quần Nam
+                    li.has-sub
+                      a(href='#') Thời Trang Nữ(đang phát triển) 
+                      ul.categorie_sub
+                        li
+                          a(href='#') Áo nữ
+                        li
+                          a(href='#') Váy, Đầm
+                        li
+                          a(href='#') Quần nữ
+                    li.has-sub
+                      a(href='#') Books(đang phát triển)
+          .col-lg-9.col-md-12.col-12
+            .categories_banner
+              .categories_banner_inner
+                //img(src='assets/img/banner/shop.jpg', alt='')
+                p
+                  | Nowadays the VDN industry is one of the most successful business spheres.We always stay in touch with the latest fashion tendencies - that is why our goods are so popular and we have a great number of faithful customers all over the country.
+              h3 PRODUCTS
+            .tav_menu_wrapper
+              .row.align-items-center
+                .col-lg-6.col-md-7.col-sm-6
+                  .tab_menu.shop_menu
+                    .tab_menu_inner
+                      ul.nav(role='tablist')
+                        li
+                          a.active(data-toggle='tab', href='#shop_active', role='tab', aria-controls='shop_active', aria-selected='true')
+                            i.fa.fa-th(aria-hidden='true')
+                        li
+                          a(data-toggle='tab', href='#featured_active', role='tab', aria-controls='featured_active', aria-selected='false')
+                            i.fa.fa-list(aria-hidden='true')
+                .col-lg-6.col-md-5.col-sm-6
+                  form.form-horizontal.span6
+                    .control-group
+                      select(name='select-product', onchange='location=this.value;')
+                        option(value=0) SORT BY
+                        option(value='/products/sortAZ') Product name A - Z
+                        option(value='/products/sortZA') Product name Z - A
+                        option(value='/products/priceLow') Price Lowest first
+                        option(value='/products/priceHigh') Price Highest first
+            .tab_product_wrapper
+              .tab-content
+                #shop_active.tab-pane.fade.show.active
+                  .row
+                    each product in products
+                      .col-xl-3.col-lg-4.col-md-6.col-sm-6
+                        .single__product
+                          .single_product__inner
+                            .product_img
+                              a(href='/product-details/' + product.id)
+                                img(src=product.img, alt='')
+                            .product__content.text-center
+                              .produc_desc_info
+                                .product_title
+                                  h4
+                                    a(href='/product-details/' + product.id) #{product.name}
+                                .product_price
+                                  p K₫ #{product.price}
+                              .product__hover
+                                ul
+                                  li
+                                    a(href='/cart/add/'+product.id)
+                                      i.ion-android-cart
+                                  li
+                                    a(href='/product-details/' + product.id)
+                                      i.ion-clipboard   
+                #featured_active.tab-pane.fade(role='tabpanel')
+                  each product in products
+                    .tab_product_bottom_wrapper
+                      .row
+                        .col-lg-4.col-md-5.col-sm-5
+                          .single_product__inner.inner_shop
+                            .product_img
+                              a(href='/product-details/' + product.id)
+                                img(src=product.img, alt='')
+                        .col-lg-8.col-md-7.col-sm-7
+                          .product__content.text-left
+                            .produc_desc_info
+                              .product_title.title_shop
+                                h4
+                                  a(href='/product-details/' + product.id) #{product.name}
+                              .product_price.price_shop
+                                p K₫ #{product.price}
+                              .product_content_shop
+                                p #{product.description}
+                            .product__hover.hover_shop
+                              .product_addto_cart
+                                a(href='/cart/add/'+product.id)
+                                  button ADD TO CART
+                              .product_cart_icone
+                                ul
+                                  li
+                                    a(href=href='/cart/add/'+product.id)
+                                      i.ion-android-cart
+                                  li
+                                    a(href='/product-details/' + product.id)
+                                      i.ion-clipboard
+            // Pagination ( Phan Trang )
+            - var lowerLimit = (parseInt((page - 1)/3) * 3) + 1;
+            - var startPage = lowerLimit-1;
+            .shop_pagination
+              .row.align-items-center
+                .col-lg-6.offset-lg-2.col-md-6.col-sm-6
+                  .page_list_clearfix.text-center
+                    ul
+                      if(page > 1)
+                        li.prev
+                          a(href='/products'+`${baseUrl ? baseUrl : '?'}`+'page='+(page-1))
+                            i.zmdi.zmdi-chevron-left
+                            |  Previous
+                      else
+                        li.prev
+                          a(href='#')
+                            i.zmdi.zmdi-chevron-left
+                            |  Previous
+                      each i in [1, 2, 3]
+                        if( total > startPage*perPage)
+                          - startPage = startPage + 1;
+                            if(page !== startPage)
+                              li
+                                a(href='/products'+`${baseUrl ? baseUrl : '?'}`+'page='+startPage) #{startPage}
+                            else
+                              li.current_page
+                                a(href='/products'+`${baseUrl ? baseUrl : '?'}`+'page='+startPage) #{startPage}
+                      if(page < total/perPage)
+                        li.next
+                          a(href='/products'+`${baseUrl ? baseUrl : '?'}`+'page='+(page+1))
+                            | Next 
+                            i.zmdi.zmdi-chevron-right
+                      else
+                        li.next
+                          a(href='#')
+                            | Next 
+                            i.zmdi.zmdi-chevron-right
+    // footer start
+  include ../layout/footer.pug

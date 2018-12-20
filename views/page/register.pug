@@ -1,0 +1,167 @@
+extends ../layout/header.pug
+block content
+  // breadcrumb area start
+  .breadcrumb_container
+    .container-fluid
+      .row
+        .col-12
+          nav
+            ul
+              li
+                a(href='/') Home &gt;
+              li register (checkout)
+  // Checkout page section
+  .Checkout_page_section
+    .container
+      .row
+        .col-12
+          .customer-login.mb-40
+            h3 REGISTER
+      .checkout-form
+        .row
+          .col-lg-6.col-md-6
+            .row
+              .col-12.mb-30
+                form#formsubmit.form-horizontal(action='/')
+                  h4 Your personal information
+                  .control-group
+                    label.control-label(for='inputName')
+                      | Name *
+                    .controls
+                      input#inputName(type='text', name='fullName', placeholder='Name')
+                  .control-group
+                    label.control-label(for='phone')
+                      | Phone *
+                    .controls
+                      input#phone(type='text', name='phone', placeholder='Phone')
+                  .control-group
+                    label.control-label(for='input_email')
+                      | Email *
+                    .controls
+                      input#input_email(type='text', name='email', placeholder='Email')
+                  .control-group
+                    label.control-label(for='address')
+                      | Address *
+                    .controls
+                      input#address(type='text', name='address', placeholder='Adress')
+                  .control-group
+                    label.control-label(for='city')
+                      | City *
+                    .controls
+                      select#state(name='city')
+                        option(value='') -
+                        option(value='1') Nam Định
+                        option(value='2') Hà Nội
+                        option(value='3') Tp Hồ Chí Minh
+                        option(value='4') An Giang
+                        option(value='5') Bà Rịa - Vũng Tàu
+                        option(value='6') Bạc Liêu
+                        option(value='7') Bắc Kạn
+                        option(value='8') Bắc Giang
+                        option(value='9') Bắc Ninh
+                        option(value='10') Bến Tre
+                        option(value='11') Bình Dương
+                        option(value='12') Bình Định
+                        option(value='13') Bình Phước
+                        option(value='14') Bình Thuận
+                        option(value='15') Cà Mau
+                        option(value='16') Cao Bằng
+                        option(value='17') Cần Thơ
+                        option(value='18') Đà Nẵng
+                        option(value='19') Đắk Lắk
+                        option(value='20') Đắk Nông
+                        option(value='21') Đồng Nai
+                        option(value='22') Đồng Tháp
+                        option(value='23') Điện Biên
+                        option(value='24') Gia Lai
+                        option(value='25') Hà Giang
+                        option(value='26') Hà Nam
+                        option(value='27') Hà Tĩnh
+                        option(value='28') Hải Dương
+                        option(value='29') Hải Phòng
+                        option(value='30') Hòa Bình
+                        option(value='31') Hậu Giang
+                        option(value='32') Hưng Yên
+                        option(value='33') Khánh Hòa
+                        option(value='34') Kiên Giang
+                        option(value='35') Kon Tum
+                        option(value='36') Lai Châu
+                        option(value='37') Lào Cai
+                        option(value='38') Lạng Sơn
+                        option(value='39') Lâm Đồng
+                        option(value='40') Long An
+                        option(value='41') Nghệ An
+                        option(value='42') Ninh Bình
+                        option(value='43') Ninh Thuận
+                        option(value='44') Phú Thọ
+                        option(value='45') Phú Yên
+                        option(value='46') Quảng Bình
+                        option(value='47') Quảng Nam
+                        option(value='48') Quảng Ngãi
+                        option(value='49') Quảng Ninh
+                        option(value='50') Quảng Trị
+                        option(value='51') Sóc Trăng
+                        option(value='52') Sơn La
+                        option(value='53') Tây Ninh
+                        option(value='54') Thái Bình
+                        option(value='55') Thái Nguyên
+                        option(value='56') Thanh Hóa
+                        option(value='57') Thừa Thiên - Huế
+                        option(value='58') Tiền Giang
+                        option(value='59') Trà Vinh
+                        option(value='60') Tuyên Quang
+                        option(value='61') Vĩnh Long
+                        option(value='62') Vĩnh Phúc
+                        option(value='63') Yên Bái
+                  .control-group
+                    label.control-label(for='aditionalInfo' ) Additional information
+                    .controls
+                      textarea#aditionalInfo(name='aditionalInfo', cols='26', rows='3')
+                  
+                    p ** Fill in enough information
+                  .control-group
+                    .order-wrapper               
+                      .order-button
+                        button(type='submit') Register
+          .col-lg-6.col-md-6
+            .row
+              .col-12.mb-30
+                h4 Thank You 
+  // Checkout page section end
+  // organicfood wrapper start
+  .footer_food_wrapper
+    // footer start
+    include ../layout/footer.pug
+  block js
+    script.
+      var form = document.getElementById('formsubmit'); 
+      form.addEventListener('change', onChange); 
+      form.addEventListener('submit', onSubmit);
+      var infor = [];
+      function onChange(event){
+        var target = event.target;
+        var name = target.name;
+        var value = target.value;
+        //console.log(name, value);
+        infor.push({
+          name: name,
+          value: value
+        })
+        //console.log(infor);
+      }
+
+      function onSubmit(event) {
+        //event.preventDefault();
+        console.log(infor);
+        fetch('http://localhost:3000/register/submit', {
+          method: 'post',
+          headers:{
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            infor: infor
+          })
+        })
+        .then(response => console.log('Success'))
+        .catch(error => console.error('Error', error));
+      }

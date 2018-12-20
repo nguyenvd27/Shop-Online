@@ -1,0 +1,67 @@
+extends ../layout/header.pug
+block content
+  .container
+    .row
+      .col-12
+        br 
+        h1
+          span.mt-100.mr-10 Orders View
+        hr.soft
+        if order.status===0
+          a.btn.btn-info(href='/admin/orders/'+order.id+'/xacnhan') Xác Nhận
+        else if order.status===1 
+          a.btn.btn-info(href='#') Đã Xác Nhận
+        h3 Customer Information
+        br 
+        table.table.table-bordered
+          tr
+            td
+              p(style ={ 'font-size': '20px'}) ID: <strong>#{order.id}</strong>
+              p(style ={ 'font-size': '20px'}) Email:  <strong>#{order.email}</strong>
+              p(style ={ 'font-size': '20px'}) Name:  <strong>#{order.name}</strong>
+              p(style ={ 'font-size': '20px'}) Phone:  <strong>#{order.phone}</strong>
+              p(style ={ 'font-size': '20px'}) Address:  <strong>#{order.address}</strong>
+              p(style ={ 'font-size': '20px'}) City:  <strong>#{order.city}</strong>
+              p(style ={ 'font-size': '20px'}) Date:  <strong>#{order.dateorder}</strong>
+              p(style ={ 'font-size': '20px'}) AddInformation:  <strong>#{order.addinfor}</strong>
+              p(style ={ 'font-size': '20px'}) Total Price:  <strong>#{order.totalprice}</strong>
+        h3 Products
+        br 
+        table.table.table-bordered
+          thead
+            tr
+              th ID
+              th Name
+              th Product
+              th Description
+              th Quantity
+              th Price
+              th Total
+          tbody#select-quantity
+            each product in products
+              tr
+                td
+                  |  #{product.id}
+                td
+                  |  #{product.name}
+                td
+                  img(width='60', src=product.img, alt='')
+                td 
+                  |  #{product.description}
+                td
+                  |  #{product.quantity}
+                td K₫ #{product.price}
+                td K₫ #{product.price * product.quantity}
+            tr
+              td(colspan='6', style='text-align:right')
+                strong TOTAL PRICE =
+              -
+                var totalPrice = 0
+                for(var i=0;i< products.length;i++){
+                totalPrice = totalPrice + products[i].price*products[i].quantity
+                }
+              td.label.label-important(style='display:block')
+                strong K₫ #{totalPrice} 
+
+  // Footer ==========================================================
+  include ../layout/footer.pug

@@ -1,0 +1,48 @@
+extends ../layout/header.pug
+block content
+  #mainBody
+    .container
+      h1 Visit us
+      hr.soften
+      .row
+        .col-lg-6.col-md-6
+          h4 Contact Details
+          p
+            | 1 Dai Co Viet,
+            br
+            strong Viện CNTT TT, ĐH Bách Khoa Hà Nội
+            br
+            br
+            | &#x9;&#x9;&#x9;ducnguyen272727@gmail.com
+            br
+            | &#x9;&#x9;&#x9;&#xFEFF;Tel 0839232255
+            br
+            | &#x9;&#x9;&#x9;web:null
+        .col-lg-6.col-md-6
+          h4 Opening Hours
+          h5  Monday - Friday
+          p
+            | 06:45am - 06:00pm
+            br
+            br
+          h5 Saturday
+          p
+            | 09:00am - 07:00pm
+            br
+            br
+          h5 Sunday
+          p
+            | 1:30pm - 06:00pm
+            br
+      hr.soften
+      br
+      br
+      .row
+        small
+          a(href='https://www.google.com/maps/place/Hanoi+University+of+Science+and+Technology/@21.0059282,105.8422631,17.75z/data=!4m12!1m6!3m5!1s0x3135ac76ccab6dd7:0x55e92a5b07a97d03!2sHanoi+University+of+Science+and+Technology!8m2!3d21.0055546!4d105.8434628!3m4!1s0x3135ac76ccab6dd7:0x55e92a5b07a97d03!8m2!3d21.0055546!4d105.8434628?hl=en', style='color:#0000FF;text-align:left') 
+            p(style={ 'font-size' :'20px', 'color':'green'}) 
+              strong View Larger Map
+        br
+        img(src='assets/img/contact.png', style='width:100%; height:500px; border: 0px')
+  // Footer ==================================================
+  include ../layout/footer.pug

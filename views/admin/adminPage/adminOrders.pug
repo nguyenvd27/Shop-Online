@@ -1,0 +1,81 @@
+extends ../layout/header.pug
+block content
+  .container
+    .row
+      .col-12
+        h1
+          span.mt-100.mr-10 Orders
+        hr.soft
+        form.form-inline(method='get', action='/admin/orders/search')
+            input#search.form-control(type='text',placeholder='Search orders by name...', name='q', value = q ? q : '')
+            span &nbsp;
+            button.btn.btn-primary(type='submit') SEARCH
+        br 
+        form#idDelete(action="/admin/orders/delete", method="POST" class="form-inline")
+          input(type="text" name = "idDelete" class="form-control" placeholder='Nhap vao id can xoa...')
+          span &nbsp;
+          button.btn.btn-danger Delete
+        br 
+        table.table.table-bordered
+          thead 
+            tr.thead-dark
+              th ID
+              th Name
+              th Time Order
+              th Total Price
+              th Status
+              th Action
+          tbody
+            each order in orders
+              tr
+                td= order.id
+                td= order.name
+                th= order.dateorder
+                td(style ={ 'font-size': '18px'})= order.totalprice
+                if order.status===0
+                  td Chưa Xác Nhận
+                else if order.status===1 
+                  td Đã Xác Nhận
+                td
+                  a.btn.btn-info(href='/admin/orders/'+order.id name='view' value=order.id) View
+        br 
+        hr.soft
+        // Pagination ( Phan Trang )
+        - var lowerLimit = (parseInt((page - 1)/3) * 3) + 1;
+        - var startPage = lowerLimit-1;
+        .shop_pagination
+          .row.align-items-center
+            .col-lg-6.offset-lg-2.col-md-6.col-sm-6
+              .page_list_clearfix.text-center
+                ul
+                  if(page > 1)
+                    li.prev
+                      a(href='/admin/orders'+`${baseUrl ? baseUrl : '?'}`+'page='+(page-1))
+                        i.zmdi.zmdi-chevron-left
+                        |  Previous
+                  else
+                    li.prev
+                      a(href='#')
+                        i.zmdi.zmdi-chevron-left
+                        |  Previous
+                  each i in [1, 2, 3]
+                    if( total > startPage*perPage)
+                      - startPage = startPage + 1;
+                        if(page !== startPage)
+                          li
+                            a(href='/admin/orders'+`${baseUrl ? baseUrl : '?'}`+'page='+startPage) #{startPage}
+                        else
+                          li.current_page
+                            a(href='/admin/orders'+`${baseUrl ? baseUrl : '?'}`+'page='+startPage) #{startPage}
+                  if(page < total/perPage)
+                    li.next
+                      a(href='/admin/orders'+`${baseUrl ? baseUrl : '?'}`+'page='+(page+1))
+                        | Next 
+                        i.zmdi.zmdi-chevron-right
+                  else
+                    li.next
+                      a(href='#')
+                        | Next 
+                        i.zmdi.zmdi-chevron-right
+  // Footer ==========================================================
+  include ../layout/footer.pug
