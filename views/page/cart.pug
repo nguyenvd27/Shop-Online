@@ -36,7 +36,7 @@ block content
                       td.product-price
                         span.amount K₫ #{product.price}
                       td.product-quantity
-                        input.span1(style='max-width:34px', value=product.quantity, id= product.productid, size='16', type='text')
+                        input(style='max-width:34px', value=product.quantity, id= product.productid, size='16', type='text')
                         a(href='/cart/checkout/update') 
                           button.btn.btn-success(type='button') Update
                         //- .quickview_plus_minus.quick_cart
@@ -56,14 +56,14 @@ block content
                   h2 Cart Totals
                   .order-total
                     span
-                      strong Total
+                      h4 TOTAL:
                       -
                         var totalPrice = 0
                         for(var i=0;i< products.length;i++){
                         totalPrice = totalPrice + products[i].price*products[i].quantity
                         }
                     span
-                      strong K₫ #{totalPrice}
+                      h4 K₫ #{totalPrice}
                   .wc-proceed-to-checkout
                     a(href= email ? '/register' : '/signin') Register (Checkout)
     // footer

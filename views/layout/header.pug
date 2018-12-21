@@ -6,7 +6,7 @@ head
   meta(name='description', content='')
   meta(name='viewport', content='width=device-width, initial-scale=1')
   // Favicon
-  link(rel='shortcut icon', type='image/x-icon', href='assets/img/newlogo.png')
+  link(rel='shortcut icon', type='image/x-icon', href='assets/img/logo/logo12.png')
   // all css here
   link(rel='stylesheet', href='assets/css/bootstrap.min.css')
   link(rel='stylesheet', href='assets/css/animate.css')
@@ -25,21 +25,24 @@ head
 // organicfood wrapper start
 .organic_food_wrapper
   // Header start
-  header.header.sticky-header(style="background-color: #F0FFFF;")
+  header.header.sticky-header(style="background-color: #E9F7EF;")
     .container-fluid
       .row
         .col-12
           .header_wrapper_inner
             .logo.col-xs-12
+              br
               a(href='/')
-                img(src='assets/img/logo/newlogo.png', width='20%' alt='')
+                img(src='assets/img/logo/shoponline.png', width='20%' alt='')
               if email 
-                p Hello #{email}
+                p <strong> VNshop</strong> Xin Chào #{email}
+              else 
+                p &nbsp; &nbsp; &nbsp; &nbsp; <strong> VNshop</strong>  
             .main_menu_inner
               .menu
                 nav
                   ul
-                    li.active
+                    li
                       a(href='/') Home 
                     li
                       a(href='/products') products

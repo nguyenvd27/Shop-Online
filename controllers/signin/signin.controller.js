@@ -7,6 +7,20 @@ module.exports.signin = (req, res) => {
 };
 
 module.exports.postSignin = (req, res) => {
+    var errors = [];
+    if(!req.body.email){
+        errors.push('Email is required.');
+    }
+    if(!req.body.password){
+        errors.push('Password is required.');
+    }
+    if(errors.length){
+        res.render('page/signin',{
+            errors: errors,
+            values: req.body
+        });
+        return;
+    }
     const { email, password } = req.body;
     db.select('email', 'hash','id').from('login')
         .where('email', '=', email)

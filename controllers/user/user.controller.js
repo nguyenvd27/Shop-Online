@@ -27,7 +27,23 @@ module.exports.postChangePassword = ( req, res) => {
     var email = req.signedCookies.email;
     var { oldPassword, newPassword, xacnhanPassword } = req.body;
     //console.log(oldPassword, newPassword, xacnhanPassword);
-
+    var errors = [];
+    if(!oldPassword){
+        errors.push('Phải nhập password cũ .');
+    }
+    if(!newPassword){
+        errors.push('new password không được để trống .');
+    }
+    if(!xacnhanPassword){
+        errors.push('Password nhập lại không được để trống.');
+    }
+    if(errors.length){
+        res.render('page/userChangePassword',{
+            errors: errors,
+            values: req.body
+        });
+        return;
+    }
     db('login').where('email','=', email)
     .then(data => {
         const comparePass = bcrypt.compareSync(oldPassword, data[0].hash);
@@ -54,7 +70,7 @@ module.exports.postChangePassword = ( req, res) => {
         }else{
             res.render('page/userChangePassword', {
                 errors: [
-                    'Wrong password'
+                    'Nhập sai password cũ'
                 ],
                 values: req.body,
                 email: email

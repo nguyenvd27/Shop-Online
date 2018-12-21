@@ -4,7 +4,7 @@ module.exports.products = (req, res) => {
     var page = parseInt(req.query.page) || 1;
     var perPage =10;
     var total;
-    db('products').orderBy('id','asc')
+    db('products').orderBy('id','desc')
     .limit(perPage).offset((page-1)*perPage)
     .then(data => {
         console.log(data);

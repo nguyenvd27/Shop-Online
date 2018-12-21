@@ -33,7 +33,6 @@ block content
               th ID
               th Name
               th Product
-              th Description
               th Quantity
               th Price
               th Total
@@ -46,14 +45,12 @@ block content
                   |  #{product.name}
                 td
                   img(width='60', src=product.img, alt='')
-                td 
-                  |  #{product.description}
                 td
                   |  #{product.quantity}
                 td K₫ #{product.price}
                 td K₫ #{product.price * product.quantity}
             tr
-              td(colspan='6', style='text-align:right')
+              td(colspan='5', style='text-align:right')
                 strong TOTAL PRICE =
               -
                 var totalPrice = 0

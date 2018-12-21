@@ -22,8 +22,12 @@ block content
           .col-lg-6.col-md-6
             .row
               .col-12.mb-30
+                if errors
+                  each error in errors
+                    .alert.alert-danger= error
                 form#formsubmit.form-horizontal(action='/')
                   h4 Your personal information
+                  p Chỉ khi điền đủ thông tin thì hệ thống mới xử lí 
                   .control-group
                     label.control-label(for='inputName')
                       | Name *
@@ -117,7 +121,6 @@ block content
                     label.control-label(for='aditionalInfo' ) Additional information
                     .controls
                       textarea#aditionalInfo(name='aditionalInfo', cols='26', rows='3')
-                  
                     p ** Fill in enough information
                   .control-group
                     .order-wrapper               
@@ -125,9 +128,37 @@ block content
                         button(type='submit') Register
           .col-lg-6.col-md-6
             .row
-              .col-12.mb-30
-                h4 Thank You 
-  // Checkout page section end
+              .col-12.mb-30 
+                h4 Thank you for buying
+                br
+                br 
+                br 
+                .order-wrapper
+                  h3 Your order
+                  .order-table.table-responsive.mb-30
+                    table
+                      thead
+                        tr
+                          th.product-name Product
+                          th.product-total Total
+                      tbody
+                        each product in products
+                          tr 
+                            td.product-name
+                              | #{product.name} ( K₫ #{product.price} )
+                              strong  &times; #{product.quantity}
+                            td.amount  K₫ #{product.price * product.quantity}
+                      tfoot
+                        tr
+                          th Order Total
+                          td
+                            -
+                              var totalPrice = 0
+                              for(var i=0;i< products.length;i++){
+                              totalPrice = totalPrice + products[i].price*products[i].quantity
+                              }
+                            span
+                              strong K₫ #{totalPrice}
   // organicfood wrapper start
   .footer_food_wrapper
     // footer start

@@ -26,8 +26,8 @@ module.exports.cartItems =( req, res, next) => {
             for(var i=0;i< data.length; i++){
                 price = price + data[i].price*data[i].quantity;
             }
-            // console.log('price: ', price);
-            // console.log('count: ', countItem);
+            console.log('price: ', price);
+            console.log('count: ', countItem);
         }
         res.locals.countItem = countItem;
         res.locals.price = price;
