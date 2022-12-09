@@ -14,7 +14,7 @@
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.18.3",
     "cookie-parser": "^1.4.3",
-    "express": "^4.16.4",
+    "express": "^4.17.3",
     "knex": "^0.15.2",
     "multer": "^1.4.1",
     "pg": "^7.6.1",
